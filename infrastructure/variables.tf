@@ -20,7 +20,8 @@ variable "number_of_images_to_keep" {
 locals {
   default_tags = {
     Application = "Time"
-    Team = "Expensely"
+    Team = "Tracker"
     ManagedBy = "Terraform"
+    Environment = var.environment
   }
 }
