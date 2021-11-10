@@ -12,6 +12,9 @@ variable "api_ecr_name" {
 variable "migration_ecr_name" {
   type = string
 }
+variable "integration_tests_ecr_name" {
+  type = string
+}
 variable "number_of_images_to_keep" {
   type = number
   default = 200
