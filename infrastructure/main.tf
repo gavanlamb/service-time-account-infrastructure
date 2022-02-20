@@ -1,6 +1,6 @@
 // ECR
 resource "aws_ecr_repository" "api" {
-  name = var.api_ecr_name
+  name = local.api_ecr_name
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -9,7 +9,6 @@ resource "aws_ecr_repository" "api" {
   lifecycle {
     prevent_destroy = true
   }
-  tags = local.default_tags
 }
 resource "aws_ecr_lifecycle_policy" "api" {
   repository = aws_ecr_repository.api.name
@@ -33,8 +32,8 @@ resource "aws_ecr_lifecycle_policy" "api" {
 EOF
 }
 
-resource "aws_ecr_repository" "migration" {
-  name = var.migration_ecr_name
+resource "aws_ecr_repository" "migrator" {
+  name = local.migrator_ecr_name
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -43,10 +42,9 @@ resource "aws_ecr_repository" "migration" {
   lifecycle {
     prevent_destroy = true
   }
-  tags = local.default_tags
 }
-resource "aws_ecr_lifecycle_policy" "migration" {
-  repository = aws_ecr_repository.migration.name
+resource "aws_ecr_lifecycle_policy" "migrator" {
+  repository = aws_ecr_repository.migrator.name
   policy = <<EOF
 {
   "rules": [
@@ -67,8 +65,8 @@ resource "aws_ecr_lifecycle_policy" "migration" {
 EOF
 }
 
-resource "aws_ecr_repository" "integration_tests" {
-  name = var.integration_tests_ecr_name
+resource "aws_ecr_repository" "api_tests" {
+  name = local.api_tests_ecr_name
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -77,10 +75,9 @@ resource "aws_ecr_repository" "integration_tests" {
   lifecycle {
     prevent_destroy = true
   }
-  tags = local.default_tags
 }
-resource "aws_ecr_lifecycle_policy" "integration_tests" {
-  repository = aws_ecr_repository.integration_tests.name
+resource "aws_ecr_lifecycle_policy" "api_tests" {
+  repository = aws_ecr_repository.api_tests.name
   policy = <<EOF
 {
   "rules": [

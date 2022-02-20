@@ -6,23 +6,24 @@ variable "region" {
   type = string
 }
 
-variable "api_ecr_name" {
+variable "application_name" {
   type = string
+  default = "Time"
 }
-variable "migration_ecr_name" {
-  type = string
-}
-variable "integration_tests_ecr_name" {
-  type = string
-}
+
 variable "number_of_images_to_keep" {
   type = number
   default = 200
 }
 
 locals {
+  api_ecr_name = "${lower(var.application_name)}-api"
+  migrator_ecr_name = "${lower(var.application_name)}-migrator"
+  api_tests_ecr_name = "${lower(var.application_name)}-api-tests"
+  
   default_tags = {
-    Application = "Time"
+    Service = var.application_name
+    Application = "Expensely"
     Team = "Tracker"
     ManagedBy = "Terraform"
     Environment = var.environment
