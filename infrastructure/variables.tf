@@ -19,8 +19,6 @@ variable "number_of_images_to_keep" {
 locals {
   api_ecr_name = "${lower(var.application_name)}-api"
   migrator_ecr_name = "${lower(var.application_name)}-migrator"
-  api_tests_ecr_name = "${lower(var.application_name)}-api-tests"
-  load_tests_ecr_name = "${lower(var.application_name)}-load-tests"
   
   default_tags = {
     Service = var.application_name
